@@ -18,13 +18,13 @@ public class ErrorHandler {
     @ResponseStatus(INTERNAL_SERVER_ERROR)
     public ErrorResponse handle(Exception ex) {
         log.error("Exception: ", ex);
-        return new ErrorResponse(UNEXPECTED_ERROR.getValue());
+        return new ErrorResponse(UNEXPECTED_ERROR.getCode(), UNEXPECTED_ERROR.getMessage());
     }
 
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     @ResponseStatus(METHOD_NOT_ALLOWED)
     public ErrorResponse handle(HttpRequestMethodNotSupportedException ex) {
         log.error("HttpRequestMethodNotSupportedException: ", ex);
-        return new ErrorResponse(ex.getMessage());
+        return new ErrorResponse("HTTP_REQUEST_METHOD_NOT_SUPPORTED_EXCEPTION", ex.getMessage());
     }
 }
