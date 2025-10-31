@@ -5,9 +5,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import static org.springframework.boot.SpringApplication.run;
 
 @SpringBootApplication
-public class ChangeMyNameApplication {
+public class MSOrder {
 
     public static void main(String[] args) {
-        run(ChangeMyNameApplication.class, args);
+        run(MSOrder.class, args);
     }
 }
