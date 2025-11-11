@@ -1,0 +1,39 @@
+databaseChangeLog:
+  - changeSet:
+      id: order_status_entity
+      author: aladdin
+      changes:
+        - createTable:
+            tableName: order_status_event
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: BIGINT
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+        - createTable:
+            tableName: categories
+            columns:
+              - column:
+                  name: order_status_event_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: category
+                  type: VARCHAR(255)
+        - addForeignKeyConstraint:
+            constraintName: fk_order_status
+            baseTableName: categories
+            baseColumnNames: order_status_event_id
+            referencedTableName: order_status_event
+            referencedColumnNames: id
+            onDelete: CASCADE

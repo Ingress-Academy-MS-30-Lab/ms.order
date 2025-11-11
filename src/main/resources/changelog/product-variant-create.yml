@@ -1,0 +1,43 @@
+databaseChangeLog:
+  - changeSet:
+      id: product_variant_entity_create
+      author: aladdin
+      changes:
+        - createTable:
+            tableName: product_variant
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: product_variant_id
+                  type: BIGINT
+              - column:
+                  name: image_url
+                  type: VARCHAR(255)
+              - column:
+                  name: price
+                  type: DECIMAL(19,2)
+              - column:
+                  name: on_sale
+                  type: BOOLEAN
+              - column:
+                  name: sale_price
+                  type: DECIMAL(19,2)
+              - column:
+                  name: requested_quantity
+                  type: INT
+              - column:
+                  name: order_item_id
+                  type: BIGINT
+        - addForeignKeyConstraint:
+            constraintName: fk_product_variant_order
+            baseTableName: product_variant
+            baseColumnNames: order_item_id
+            referencedTableName: order_items
+            referencedColumnNames: id
+            onDelete: CASCADE
