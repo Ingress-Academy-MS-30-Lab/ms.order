@@ -1,13 +1,17 @@
 package az.ingress;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.openfeign.EnableFeignClients;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 import static org.springframework.boot.SpringApplication.run;
 
 @SpringBootApplication
-public class ChangeMyNameApplication {
+@EnableFeignClients
+@EnableScheduling
+public class OrderMs {
 
     public static void main(String[] args) {
-        run(ChangeMyNameApplication.class, args);
+        run(OrderMs.class, args);
     }
 }
