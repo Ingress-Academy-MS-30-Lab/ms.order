@@ -1,0 +1,12 @@
+package az.ingress.model.enums;
+
+public enum ProductIssueType {
+    OUT_OF_STOCK,
+    PRICE_CHANGED,
+    INSUFFICIENT_PRICE,
+    MAX_QUANTITY_EXCEEDED,
+    PRODUCT_NOT_FOUND,
+    PRODUCT_UNAVAILABLE,
+    INVALID_VARIANT,
+    INSUFFICIENT_BALANCE,
+}
