@@ -1,12 +1,12 @@
-package az.ingress.exception;
+package az.ingress.client.decoder;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public enum ErrorMessage {
-    UNEXPECTED_ERROR("Unexpected error occurred");
+public enum JsonNodeFieldName {
+    MESSAGE("Feign error");
 
     private final String value;
 }

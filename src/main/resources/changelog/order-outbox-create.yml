@@ -1,0 +1,41 @@
+databaseChangeLog:
+  - changeSet:
+      id: order_outbox_entity_create
+      author: aladdin
+      changes:
+        - createTable:
+            tableName: order_outbox
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: event_type
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: order_status_event_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: processed
+                  type: BOOLEAN
+                  defaultValueBoolean: false
+        - addForeignKeyConstraint:
+            constraintName: fk_order_outbox
+            baseTableName: order_outbox
+            baseColumnNames: order_status_event_id
+            referencedTableName: order_status_event
+            referencedColumnNames: id
+            onDelete: CASCADE

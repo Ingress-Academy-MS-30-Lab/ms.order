@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: order-ms
+  profiles:
+    include:
+      - db
+      - log
+      - common
+      - rabbit
+
+    active: dev

@@ -1,0 +1,15 @@
+databaseChangeLog:
+  - include:
+      file: changelog/shipping-address-create.yml
+  - include:
+      file: changelog/payment-create.yml
+  - include:
+      file: changelog/order-create.yml
+  - include:
+      file: changelog/order-items-create.yml
+  - include:
+      file: changelog/order-status-create.yml
+  - include:
+      file: changelog/order-outbox-create.yml
+  - include:
+      file: changelog/product-variant-create.yml
