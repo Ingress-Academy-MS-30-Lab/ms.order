@@ -1,0 +1,10 @@
+spring:
+  cache:
+    type: simple
+
+logging:
+  level:
+    root: INFO
+    org.springframework.web: INFO
+    org.springframework.data.jpa.repository: INFO
+    org.hibernate.SQL: OFF
