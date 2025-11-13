@@ -42,6 +42,7 @@ public class PaymentHandleServiceImpl implements PaymentHandleService {
     public OrderResponse handlePaymentRequest(OrderEntity entity) {
         var payment = paymentInfoRepository.findPaymentByOrder(entity);
         var paymentRequest = paymentMapper.toRequest(payment);
+        paymentRequest.setOrderId(entity.getId());
         entity.setStatus(PAYMENT_PENDING);
         var paymentResponse = paymentClient.createPayment(paymentRequest);
         paymentMapper.updateEntity(payment, paymentResponse);

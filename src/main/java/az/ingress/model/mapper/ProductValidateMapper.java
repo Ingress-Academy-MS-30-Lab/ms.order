@@ -14,16 +14,18 @@ public interface ProductValidateMapper {
 
     @AfterMapping
     default void mapItems(OrderCreateRequest request, @MappingTarget ProductValidateRequestDto target) {
-        var flatItems = request.getItems().stream()
-                .flatMap(orderItem -> orderItem.getProductVariants().stream()
-                        .map(variant -> new ProductItemValidateRequestDto(
-                                orderItem.getProductId(),
-                                variant.getProductVariantId(),
-                                variant.getRequestedQuantity()
-                        ))
-                )
-                .toList();
+        if (request.getItems() != null) {
+            var flatItems = request.getItems().stream()
+                    .flatMap(orderItem -> orderItem.getProductVariants().stream()
+                            .map(variant -> new ProductItemValidateRequestDto(
+                                    orderItem.getProductId(),
+                                    variant.getProductVariantId(),
+                                    variant.getRequestedQuantity()
+                            ))
+                    )
+                    .toList();
 
-        target.setProducts(flatItems);
+            target.setProducts(flatItems);
+        }
     }
 }

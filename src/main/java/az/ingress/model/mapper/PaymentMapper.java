@@ -5,6 +5,7 @@ import az.ingress.model.client.payment.PaymentRequestDto;
 import az.ingress.model.dto.request.PaymentInfoRequest;
 import az.ingress.model.dto.response.PaymentInfoResponse;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.ReportingPolicy;
 
@@ -13,7 +14,11 @@ public interface PaymentMapper {
 
     PaymentRequestDto toRequest(PaymentInfoEntity entity);
 
-    void updateEntity(@MappingTarget PaymentInfoEntity entity, PaymentInfoResponse request);
+    @Mapping(target = "amount", source = "totalAmount")
+    @Mapping(target = "userId", source = "userId")
+    @Mapping(target = "reason", source = "reason")
+    @Mapping(target = "paymentSuccess", source = "success")
+    void updateEntity(@MappingTarget PaymentInfoEntity entity, PaymentInfoResponse response);
 
     void updateEntity(@MappingTarget PaymentInfoEntity entity, PaymentInfoRequest request);
 }

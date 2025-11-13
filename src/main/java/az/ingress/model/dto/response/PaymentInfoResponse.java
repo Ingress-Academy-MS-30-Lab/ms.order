@@ -12,7 +12,7 @@ import java.util.List;
 @Data
 public class PaymentInfoResponse {
 
-    private boolean isSuccess;
+    private boolean success;
 
     private String reason;
 

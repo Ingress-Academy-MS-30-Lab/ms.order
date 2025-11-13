@@ -63,7 +63,7 @@ public interface ProductMapper {
     default List<Long> mapVariantIds(OrderItemEntity item) {
         if (item.getVariants() == null) return List.of();
         return item.getVariants().stream()
-                .map(ProductVariantEntity::getId)
+                .map(ProductVariantEntity::getProductVariantId)
                 .toList();
     }
 }
