@@ -30,22 +30,17 @@ public class ShippingAddressEntity {
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
     private String fullName;
 
-    @Column(nullable = false)
     private String addressLine1;
     private String addressLine2;
 
-    @Column(nullable = false)
     private String city;
     private String region;
     private String postalCode;
 
-    @Column(nullable = false)
     private String country;
 
-    @Column(nullable = false)
     private String phone;
 
     @OneToOne(mappedBy = "shippingAddress")

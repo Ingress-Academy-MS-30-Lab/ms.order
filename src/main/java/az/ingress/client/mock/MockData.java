@@ -39,10 +39,19 @@ public class MockData {
 
         for (ProductItemValidateRequestDto item : request.getProducts()) {
 
-            ProductVariantsResponse variant = new ProductVariantsResponse(
+            ProductVariantsResponse variant1 = new ProductVariantsResponse(
                     item.getProductVariantId(),
                     "https://aws.com/product-" + item.getProductVariantId() + ".jpg",
-                    new BigDecimal("10.00"),
+                    new BigDecimal("60.00"),
+                    false,
+                    null,
+                    item.getQuantity()
+            );
+
+            ProductVariantsResponse variant2 = new ProductVariantsResponse(
+                    item.getProductVariantId(),
+                    "https://aws.com/product-" + item.getProductVariantId() + ".jpg",
+                    new BigDecimal("45.00"),
                     false,
                     null,
                     item.getQuantity()
@@ -52,13 +61,13 @@ public class MockData {
                     "Category-" + item.getProductId(),
                     item.getProductId(),
                     "Iphone 17 Black" ,
-                    List.of(variant),
+                    List.of(variant1,variant2),
                     item.getQuantity()
             );
 
             productResponses.add(productItem);
 
-            total = total.add(variant.getPrice().multiply(BigDecimal.valueOf(item.getQuantity())));
+            total = BigDecimal.valueOf(105);
         }
 
         ProductValidateResponse response = new ProductValidateResponse();
@@ -118,31 +127,31 @@ public class MockData {
         response.setTotalAmount(request.getAmount());
         response.setPaymentId(PAYMENT_ID.incrementAndGet());
 
-        List<PaymentIssueResponse> issues = new ArrayList<>();
-
-        if (request.getAmount().compareTo(new BigDecimal("50.00")) > 0) {
-            response.setSuccess(false);
-            response.setReason("Payment amount exceeds the allowed limit");
-
-            issues.add(new PaymentIssueResponse(
-                    AMOUNT_EXCEEDS_LIMIT,
-                    "Maximum allowed amount is 50 AZN"
-            ));
-
-            response.setIssues(issues);
-            return response;
-        }
+//        List<PaymentIssueResponse> issues = new ArrayList<>();
+//
+//        if (request.getAmount().compareTo(new BigDecimal("50.00")) > 0) {
+//            response.setSuccess(false);
+//            response.setReason("Payment amount exceeds the allowed limit");
+//
+//            issues.add(new PaymentIssueResponse(
+//                    AMOUNT_EXCEEDS_LIMIT,
+//                    "Maximum allowed amount is 50 AZN"
+//            ));
+//
+//            response.setIssues(issues);
+//            return response;
+//        }
 
         if (!List.of("CARD", "APPLE_PAY", "CASH").contains(request.getPaymentMethod())) {
             response.setSuccess(false);
             response.setReason("Invalid payment method");
 
-            issues.add(new PaymentIssueResponse(
-                    INVALID_METHOD,
-                    "Payment method not supported: " + request.getPaymentMethod()
-            ));
-
-            response.setIssues(issues);
+//            issues.add(new PaymentIssueResponse(
+//                    INVALID_METHOD,
+//                    "Payment method not supported: " + request.getPaymentMethod()
+//            ));
+//
+//            response.setIssues(issues);
             return response;
         }
 

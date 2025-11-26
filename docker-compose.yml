@@ -1,11 +1,11 @@
-services:
+services:order_ms
   postgres:
     image: postgres:15
     container_name: ms_order_db
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 1234
-      POSTGRES_DB: order_ms
+      POSTGRES_DB:
     ports:
       - "5433:5432"
 

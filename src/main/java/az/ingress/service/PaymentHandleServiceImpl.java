@@ -68,7 +68,7 @@ public class PaymentHandleServiceImpl implements PaymentHandleService {
 
     public OrderResponse orderCompleted(PaymentInfoResponse response, OrderEntity entity, List<String> categories) {
         entity.setStatus(PAYMENT_SUCCESS);
-        entity.setReason(response.getReason());
+        entity.setErrorReason(response.getReason());
         orderRepository.save(entity);
         outboxEventService.saveToOutbox(entity, categories);
         productClient.productStockCallback(createProductCallBackRequest(entity));
@@ -77,7 +77,7 @@ public class PaymentHandleServiceImpl implements PaymentHandleService {
 
     public OrderResponse handlePaymentFailure(PaymentInfoResponse response, OrderEntity entity, List<String> categories) {
         entity.setStatus(PAYMENT_FAILED);
-        entity.setReason(response.getReason());
+        entity.setErrorReason(response.getReason());
         orderRepository.save(entity);
         outboxEventService.saveToOutbox(entity, categories);
         return createOrderFailedResponse(entity, response);
@@ -89,7 +89,7 @@ public class PaymentHandleServiceImpl implements PaymentHandleService {
                 entity.getId(),
                 entity.getUserId(),
                 entity.getStatus(),
-                entity.getReason());
+                entity.getErrorReason());
     }
 
     private OrderResponse createOrderCompletedResponse(OrderEntity entity, PaymentInfoResponse response) {
@@ -110,7 +110,7 @@ public class PaymentHandleServiceImpl implements PaymentHandleService {
                 .isSuccess(false)
                 .status(PAYMENT_FAILED)
                 .totalPrice(entity.getTotalAmount())
-                .message(entity.getReason())
+                .message(entity.getErrorReason())
                 .paymentIssues(response.getIssues())
                 .build();
     }

@@ -11,7 +11,6 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
@@ -24,6 +23,8 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static javax.persistence.CascadeType.MERGE;
+import static javax.persistence.CascadeType.PERSIST;
 import static javax.persistence.EnumType.STRING;
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -41,23 +42,20 @@ public class OrderEntity {
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
     private Long userId;
 
-    @Column(unique = true, nullable = false, length = 64)
     private String orderNumber;
 
     private BigDecimal totalAmount;
 
     @Enumerated(STRING)
-    @Column(nullable = false, length = 30)
     private OrderStatus status;
 
     private String reservationId;
 
     private LocalDateTime reservationExpireAt;
 
-    private String reason;
+    private String errorReason;
 
     @CreationTimestamp
     private LocalDateTime createdAt;
@@ -73,9 +71,8 @@ public class OrderEntity {
     @JoinColumn(name = "shipping_address_id")
     private ShippingAddressEntity shippingAddress;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "order", cascade = {PERSIST, MERGE})
     private List<OrderItemEntity> items;
 }
-
 
 

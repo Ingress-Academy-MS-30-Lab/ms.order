@@ -24,7 +24,6 @@ import static javax.persistence.GenerationType.IDENTITY;
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 @Table(name = "payment_info")
-
 public class PaymentInfoEntity {
 
     @Id

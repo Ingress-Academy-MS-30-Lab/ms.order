@@ -9,9 +9,9 @@ import static org.springframework.boot.SpringApplication.run;
 @SpringBootApplication
 @EnableFeignClients
 @EnableScheduling
-public class OrderMs {
+public class OrderApplication {
 
     public static void main(String[] args) {
-        run(OrderMs.class, args);
+        run(OrderApplication.class, args);
     }
 }

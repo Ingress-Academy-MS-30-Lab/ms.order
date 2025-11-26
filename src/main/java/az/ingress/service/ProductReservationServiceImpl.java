@@ -35,11 +35,8 @@ public class ProductReservationServiceImpl implements ProductReservationService 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public OrderResponse handleProductReserve(OrderEntity entity) {
         var productReservationRequest = productMapper.toProductReservationRequest(entity);
-        var productResponse = productClient.reserveProducts(productReservationRequest);
-        return handleProductReservation(productResponse, entity);
-    }
+        var response = productClient.reserveProducts(productReservationRequest);
 
-    public OrderResponse handleProductReservation(ProductReservationResponse response, OrderEntity entity) {
         if (!response.getReservationExpiresAt().isBefore(LocalDateTime.now())) {
             entity.setStatus(PRODUCT_RESERVATION_COMPLETED);
             entity.setReservationId(response.getReservationId().toString());
@@ -55,9 +52,10 @@ public class ProductReservationServiceImpl implements ProductReservationService 
                 RESERVATION_EXPIRED_EXCEPTION.getMessage());
     }
 
+
     public OrderResponse handleProductFailedResponse(ProductReservationResponse response, OrderEntity order) {
         order.setStatus(PRODUCT_RESERVATION_FAILED);
-        order.setReason(response.getReason());
+        order.setErrorReason(response.getReason());
         orderRepository.save(order);
         return OrderResponse.builder()
                 .orderId(order.getId())

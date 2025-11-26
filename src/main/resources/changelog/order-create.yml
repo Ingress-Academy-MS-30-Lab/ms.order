@@ -39,7 +39,7 @@ databaseChangeLog:
                   name: reservation_expire_at
                   type: TIMESTAMP
               - column:
-                  name: reason
+                  name: errorReason
                   type: VARCHAR(255)
               - column:
                   name: created_at
